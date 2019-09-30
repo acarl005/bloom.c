@@ -13,8 +13,8 @@ int main() {
     printf("%.6f\n", bloom_filter_false_positive_prob(bf));
 
     // check if some keys are in the BloomFilter
-    printf("%i\n", bloom_filter_might_contain(bf, "food"));
-    printf("%i\n", bloom_filter_might_contain(bf, "sushi"));
+    printf("%i\n", bloom_filter_might_contain(bf, "food")); // 1
+    printf("%i\n", bloom_filter_might_contain(bf, "sushi")); // 0
 
     bloom_filter_free(bf);
     return 0;
