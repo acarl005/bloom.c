@@ -16,7 +16,7 @@ typedef struct BloomFilter {
  * @param float fp_prob The probability of a false positive when the anticipated size is reached.
  * @return BloomFilter* Pointer to the allocated BloomFilter.
  */
-BloomFilter* bloom_filter_new(int items_count, float fp_prob);
+BloomFilter* bloom_filter_new(long items_count, float fp_prob);
 
 /**
  * Creates a bloom filter on the heap. This lets you manually choose the capacity and number of
@@ -25,7 +25,7 @@ BloomFilter* bloom_filter_new(int items_count, float fp_prob);
  * @param int hash_count The probability of a false positive when the anticipated size is reached.
  * @return BloomFilter* Pointer to the allocated BloomFilter.
  */
-BloomFilter* bloom_filter_with_capacity(int capacity, int hash_count);
+BloomFilter* bloom_filter_with_capacity(long capacity, int hash_count);
 
 /**
  * Adds a new key to the BloomFilter.

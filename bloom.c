@@ -6,13 +6,13 @@
 #include "bloom.h"
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-BloomFilter* bloom_filter_new(int items_count, float fp_prob) {
-    int capacity = -items_count * log(fp_prob) / pow(log(2), 2);
+BloomFilter* bloom_filter_new(long items_count, float fp_prob) {
+    long capacity = -items_count * log(fp_prob) / pow(log(2), 2);
     int hash_count = log(2) * capacity / items_count;
     return bloom_filter_with_capacity(capacity, hash_count);
 }
 
-BloomFilter* bloom_filter_with_capacity(int capacity, int hash_count) {
+BloomFilter* bloom_filter_with_capacity(long capacity, int hash_count) {
     BloomFilter* bf = malloc(sizeof(BloomFilter));
     bf->capacity = capacity;
     bf->bit_array = calloc(capacity, sizeof(bool));
