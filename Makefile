@@ -22,10 +22,16 @@ $(OBJ_DIR)/main.o: main.c
 $(OBJ_DIR)/test.o: test.c
 	$(CC) -c -o $(OBJ_DIR)/test.o test.c $(CFLAGS)
 
+$(OBJ_DIR)/bench.o: bench.c
+	$(CC) -c -o $(OBJ_DIR)/bench.o bench.c $(CFLAGS)
+
 main: $(OBJ) $(OBJ_DIR)/main.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 test_: $(OBJ) $(OBJ_DIR)/test.o
+	$(CC) -o $@ $^ $(CFLAGS)
+
+bench_: $(OBJ) $(OBJ_DIR)/bench.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean run test
@@ -37,3 +43,6 @@ run: main
 
 test: test_
 	./test_
+
+bench: bench_
+	time ./bench_
