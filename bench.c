@@ -4,6 +4,7 @@
 
 int main() {
     BloomFilter *bf = bloom_filter_new(10000000, 0.01);
+    printf("%u\n", bf->capacity);
 
     srand(1337); // seed random number generation
     char key[17]; // create a buffer for randomly generated string keys

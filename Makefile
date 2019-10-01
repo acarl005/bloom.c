@@ -34,9 +34,9 @@ test_: $(OBJ) $(OBJ_DIR)/test.o
 bench_: $(OBJ) $(OBJ_DIR)/bench.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
-.PHONY: clean run test
+.PHONY: clean run test bench
 clean:
-	rm -f $(OBJ_DIR)/*.o main test_
+	rm -f $(OBJ_DIR)/*.o main test_ bench_
 
 run: main
 	./main

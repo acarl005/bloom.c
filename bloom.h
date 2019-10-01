@@ -2,10 +2,10 @@
 #include <stdbool.h>
 
 typedef struct BloomFilter {
-    int capacity;
-    int size;
+    unsigned int capacity;
+    unsigned int size;
     int hash_count;
-    bool* bit_array;
+    unsigned int* bit_array;
 } BloomFilter;
 
 /**
@@ -25,7 +25,7 @@ BloomFilter* bloom_filter_new(long items_count, float fp_prob);
  * @param int hash_count The probability of a false positive when the anticipated size is reached.
  * @return BloomFilter* Pointer to the allocated BloomFilter.
  */
-BloomFilter* bloom_filter_with_capacity(long capacity, int hash_count);
+BloomFilter* bloom_filter_with_capacity(unsigned int capacity, int hash_count);
 
 /**
  * Adds a new key to the BloomFilter.
