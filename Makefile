@@ -2,7 +2,7 @@
 INCLUDE_DIR=include
 LIB_DIR=lib
 OBJ_DIR=obj
-VPATH=$(LIB_DIR)
+VPATH=$(LIB_DIR):$(INCLUDE_DIR)
 
 CC=clang
 CFLAGS=-std=c17 -I $(INCLUDE_DIR) -I $(LIB_DIR)
@@ -10,21 +10,30 @@ CFLAGS=-std=c17 -I $(INCLUDE_DIR) -I $(LIB_DIR)
 DEPS=$(patsubst %,$(INCLUDE_DIR)/%,$(*.h))
 DEPS_LIB=$(patsubst %,$(LIB_DIR)/%,$(*.c))
 
-_OBJ=bloom.o murmurhash.o tap.o test.o
+_OBJ=bloom.o murmurhash.o tap.o
 OBJ=$(patsubst %,$(OBJ_DIR)/%,$(_OBJ))
 
 $(OBJ_DIR)/%.o: %.c %.h $(DEPS_LIB) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(OBJ_DIR)/%.o: %.c $(DEPS_LIB) $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+$(OBJ_DIR)/main.o: main.c
+	$(CC) -c -o $(OBJ_DIR)/main.o main.c $(CFLAGS)
 
-test: $(OBJ)
+$(OBJ_DIR)/test.o: test.c
+	$(CC) -c -o $(OBJ_DIR)/test.o test.c $(CFLAGS)
+
+main: $(OBJ) $(OBJ_DIR)/main.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
-.PHONY: clean run
-clean:
-	rm -f $(OBJ_DIR)/*.o
+test_: $(OBJ) $(OBJ_DIR)/test.o
+	$(CC) -o $@ $^ $(CFLAGS)
 
-run: test
-	./test
+.PHONY: clean run test
+clean:
+	rm -f $(OBJ_DIR)/*.o main test_
+
+run: main
+	./main
+
+test: test_
+	./test_
