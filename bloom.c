@@ -32,6 +32,9 @@ BloomFilter* bloom_filter_new(long items_count, float fp_prob) {
 
 BloomFilter* bloom_filter_with_capacity(unsigned int capacity, int hash_count) {
     BloomFilter* bf = malloc(sizeof(BloomFilter));
+    if (bf == NULL) {
+        return NULL;
+    }
     bf->capacity = capacity;
     bf->bit_array = calloc(capacity / WORD_BITS + 1, sizeof(unsigned int));
     bf->size = 0;

@@ -5,7 +5,7 @@ OBJ_DIR=obj
 VPATH=$(LIB_DIR):$(INCLUDE_DIR)
 
 CC=clang
-CFLAGS=-std=c17 -I $(INCLUDE_DIR) -I $(LIB_DIR)
+CFLAGS=-std=c17 -I $(INCLUDE_DIR) -I $(LIB_DIR) -fsanitize=address -Wall -Werror
 
 DEPS=$(patsubst %,$(INCLUDE_DIR)/%,$(*.h))
 DEPS_LIB=$(patsubst %,$(LIB_DIR)/%,$(*.c))
